@@ -57,7 +57,7 @@ class KlipyClient extends klipy_dart.KlipyClient {
   /// If you pass in a `searchFieldWidget` you must also pass in a `searchFieldController`. The controller will automatically be disposed of.
   ///
   /// You must have one valid form of [Tenor attribution](https://developers.google.com/tenor/guides/attribution) in order to use this within your app.
-  Future<KlipyResultsObject?> showAsBottomSheet({
+  Future<KlipyResultObject?> showAsBottomSheet({
     required BuildContext context,
     TenorAttributionType attributionType = TenorAttributionType.poweredBy,
     // Whether to cover the app bar with the bottom sheet.
@@ -97,7 +97,7 @@ class KlipyClient extends klipy_dart.KlipyClient {
           ),
         ];
 
-    return showModalBottomSheet<KlipyResultsObject>(
+    return showModalBottomSheet<KlipyResultObject>(
       clipBehavior: Clip.antiAlias,
       context: context,
       isScrollControlled: true,

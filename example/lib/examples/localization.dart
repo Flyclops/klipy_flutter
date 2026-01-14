@@ -17,7 +17,7 @@ class LocalizationState extends State<Localization> {
     locale: 'es_ES',
   );
   // define a result that we can display later
-  KlipyResultsObject? selectedResult;
+  KlipyResultObject? selectedResult;
 
   @override
   Widget build(BuildContext context) {

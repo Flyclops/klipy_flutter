@@ -31,7 +31,7 @@ class TenorTabView extends StatefulWidget {
     KlipyCategoryObject? category,
   )?
   onLoad;
-  final Function(KlipyResultsObject? gif)? onSelected;
+  final Function(KlipyResultObject? gif)? onSelected;
   final bool showCategories;
   final TenorTabViewStyle style;
 
@@ -72,7 +72,7 @@ class _TenorTabViewState extends State<TenorTabView>
   KlipyResponse? _collection;
 
   // List of gifs
-  List<KlipyResultsObject> _list = [];
+  List<KlipyResultObject> _list = [];
 
   // Direction
   final Axis _scrollDirection = Axis.vertical;
@@ -185,10 +185,8 @@ class _TenorTabViewState extends State<TenorTabView>
             // Add safe area padding if `TenorAttributionType.poweredBy` is disabled
             padding:
                 _tabProvider.attributionType == TenorAttributionType.poweredBy
-                    ? null
-                    : EdgeInsets.only(
-                      bottom: MediaQuery.of(context).padding.bottom,
-                    ),
+                    ? EdgeInsets.zero
+                    : const EdgeInsets.only(bottom: 0),
             scrollDirection: _scrollDirection,
           ),
         ),
@@ -367,7 +365,7 @@ class _TenorTabViewState extends State<TenorTabView>
   }
 
   // Return selected gif
-  void _selectedGif(KlipyResultsObject gif) {
+  void _selectedGif(KlipyResultObject gif) {
     try {
       // https://developers.google.com/tenor/guides/endpoints#register-share
       client.registerShare(gif.id, search: _appBarProvider.queryText);

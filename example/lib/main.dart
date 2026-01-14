@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
   var tenor = KlipyClient(apiKey: FlutterConfig.get('KLIPY_API_KEY'));
   // define a result that we can display later
-  KlipyResultsObject? selectedResult;
+  KlipyResultObject? selectedResult;
 
   @override
   Widget build(BuildContext context) {
