@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenor_flutter/src/providers/providers.dart';
+import 'package:klipy_flutter/src/providers/providers.dart';
 
 void main() {
   const testMinExtent = 0.7;
@@ -8,9 +8,9 @@ void main() {
   const testMaxExtent = 0.9;
   final testScrollController = DraggableScrollableController();
 
-  group('TenorSheetProvider >', () {
+  group('KlipySheetProvider >', () {
     test('Initializes as expected', () async {
-      final provider = TenorSheetProvider(
+      final provider = KlipySheetProvider(
         maxExtent: testMaxExtent,
         minExtent: testMinExtent,
         initialExtent: tesInitialExtent,
@@ -25,7 +25,7 @@ void main() {
 
     test('Can set scrollController', () async {
       final updatedScrollController = DraggableScrollableController();
-      final provider = TenorSheetProvider(
+      final provider = KlipySheetProvider(
         maxExtent: testMaxExtent,
         minExtent: testMinExtent,
         scrollController: testScrollController,

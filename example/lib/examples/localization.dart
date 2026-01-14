@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class Localization extends StatefulWidget {
   const Localization({super.key});
@@ -10,14 +10,14 @@ class Localization extends StatefulWidget {
 }
 
 class LocalizationState extends State<Localization> {
-  // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
-  var tenor = Tenor(
-    apiKey: FlutterConfig.get('TENOR_API_KEY'),
+  // replace apiKey with an api key provided by KLIPY > https://docs.klipy.com/getting-started
+  var klipyClient = KlipyClient(
+    apiKey: FlutterConfig.get('KLIPY_API_KEY'),
     country: 'es',
     locale: 'es_ES',
   );
   // define a result that we can display later
-  TenorResult? selectedResult;
+  KlipyResultObject? selectedResult;
 
   @override
   Widget build(BuildContext context) {
@@ -47,27 +47,27 @@ class LocalizationState extends State<Localization> {
         children: [
           FloatingActionButton(
             onPressed: () async {
-              final result = await tenor.showAsBottomSheet(
+              final result = await klipyClient.showAsBottomSheet(
                 context: context,
-                searchFieldHintText: 'Buscar Tenor',
+                searchFieldHintText: 'Buscar KLIPY',
                 tabs: [
-                  TenorTab(
+                  KlipyTab(
                     name: 'Caritas',
-                    view: TenorViewEmojis(
-                      client: tenor,
+                    view: KlipyViewEmojis(
+                      client: klipyClient,
                     ),
                   ),
-                  TenorTab(
+                  KlipyTab(
                     name: 'Fotos',
-                    view: TenorViewGifs(
-                      client: tenor,
+                    view: KlipyViewGifs(
+                      client: klipyClient,
                       featuredCategory: '📈 Destacada',
                     ),
                   ),
-                  TenorTab(
+                  KlipyTab(
                     name: 'Pegatinas',
-                    view: TenorViewStickers(
-                      client: tenor,
+                    view: KlipyViewStickers(
+                      client: klipyClient,
                     ),
                   ),
                 ],

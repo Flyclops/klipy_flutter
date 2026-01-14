@@ -1,8 +1,8 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tenor_dart/tenor_dart.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
-class TenorCategoryStyle {
+class KlipyCategoryStyle {
   /// Allows you to set a fallback decoration for people to see if the image loads slow or fails.
   final Decoration decoration;
 
@@ -12,7 +12,7 @@ class TenorCategoryStyle {
   /// Color that shows between the category text and image.
   final Color imageOverlayColor;
 
-  /// Tenor returns "#" back with the category name, this will strip it.
+  /// KLIPY returns "#" back with the category name, this will strip it.
   final bool stripHashtag;
 
   /// Control how the category text looks.
@@ -21,10 +21,8 @@ class TenorCategoryStyle {
   /// Used to stop text from touching the edges when `FittedBox` kicks in.
   final EdgeInsets padding;
 
-  const TenorCategoryStyle({
-    this.decoration = const BoxDecoration(
-      color: Color(0xFFBEB9AC),
-    ),
+  const KlipyCategoryStyle({
+    this.decoration = const BoxDecoration(color: Color(0xFFBEB9AC)),
     this.height = 100,
     this.imageOverlayColor = const Color.fromRGBO(0, 0, 0, 0.5),
     this.padding = const EdgeInsets.all(8),
@@ -37,29 +35,29 @@ class TenorCategoryStyle {
   });
 }
 
-class TenorCategoryWidget extends StatelessWidget {
-  final TenorCategory? category;
-  final Function(TenorCategory)? onTap;
-  final TenorCategoryStyle style;
+class KlipyCategoryWidget extends StatelessWidget {
+  final KlipyCategoryObject? category;
+  final Function(KlipyCategoryObject)? onTap;
+  final KlipyCategoryStyle style;
 
-  const TenorCategoryWidget({
+  const KlipyCategoryWidget({
     this.category,
     this.onTap,
-    this.style = const TenorCategoryStyle(),
+    this.style = const KlipyCategoryStyle(),
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     // for promotion
-    final tenorCategory = category;
-    final tenorCategoryImage = tenorCategory?.image;
+    final klipyCategory = category;
+    final klipyCategoryImage = klipyCategory?.image;
 
     // early out
-    if (tenorCategory == null) return const SizedBox.shrink();
+    if (klipyCategory == null) return const SizedBox.shrink();
 
     return GestureDetector(
-      onTap: () => onTap?.call(tenorCategory),
+      onTap: () => onTap?.call(klipyCategory),
       child: Container(
         height: style.height,
         decoration: style.decoration,
@@ -67,9 +65,9 @@ class TenorCategoryWidget extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            if (tenorCategoryImage != null && tenorCategoryImage.isNotEmpty)
+            if (klipyCategoryImage != null && klipyCategoryImage.isNotEmpty)
               ExtendedImage.network(
-                tenorCategoryImage,
+                klipyCategoryImage,
                 cache: true,
                 gaplessPlayback: true,
                 fit: BoxFit.cover,
@@ -81,9 +79,9 @@ class TenorCategoryWidget extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  style.stripHashtag && tenorCategory.name.startsWith('#')
-                      ? tenorCategory.name.substring(1)
-                      : tenorCategory.name,
+                  style.stripHashtag && klipyCategory.name.startsWith('#')
+                      ? klipyCategory.name.substring(1)
+                      : klipyCategory.name,
                   style: style.textStyle,
                 ),
               ),

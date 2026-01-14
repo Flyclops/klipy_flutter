@@ -1,11 +1,13 @@
-name: tenor_flutter
-version: 1.0.0
-description: An opinionated yet customizable Flutter package for searching and selecting from a list of GIFs/Stickers from the Tenor GIF search API.
+name: klipy_flutter
+version: 0.0.1
+description: An opinionated yet customizable Flutter package for searching and selecting from a list of GIFs/Stickers from the KLIPY GIF search API.
 homepage: https://github.com/flyclops
-repository: https://github.com/flyclops/tenor_flutter
+repository: https://github.com/flyclops/klipy_flutter
 topics:
   - gif
+  - klipy
   - tenor
+  - giphy
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
@@ -16,7 +18,7 @@ dependencies:
   provider: ^6.1.5+1
   flutter_staggered_grid_view: ^0.7.0
   extended_image: ^10.0.1
-  tenor_dart: ^0.0.4
+  klipy_dart: ^0.0.1
 
 dev_dependencies:
   flutter_test:

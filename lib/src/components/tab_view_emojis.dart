@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:tenor_flutter/src/utilities/is_tablet.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/src/utilities/is_tablet.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
-class TenorViewEmojis extends StatelessWidget {
-  final Tenor client;
+class KlipyViewEmojis extends StatelessWidget {
+  final KlipyClient client;
   final int? gifsPerRow;
-  final TenorTabViewStyle style;
+  final KlipyTabViewStyle style;
 
-  const TenorViewEmojis({
+  const KlipyViewEmojis({
     required this.client,
     this.gifsPerRow,
-    this.style = const TenorTabViewStyle(),
+    this.style = const KlipyTabViewStyle(),
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TenorTabView(
+    return KlipyTabView(
       client: client,
       gifsPerRow: gifsPerRow ?? (isTablet(context) ? 8 : 9),
       keepAliveTabView: true,
@@ -24,7 +24,7 @@ class TenorViewEmojis extends StatelessWidget {
         if (queryText.isNotEmpty) {
           return await client.search(
             '$queryText emoji',
-            mediaFilter: const [TenorMediaFormat.tinyGifTransparent],
+            mediaFilter: const [KlipyMediaFormat.tinyGifTransparent],
             pos: pos,
             limit: limit,
             sticker: true,
@@ -32,7 +32,7 @@ class TenorViewEmojis extends StatelessWidget {
         } else {
           return await client.search(
             'emoji',
-            mediaFilter: const [TenorMediaFormat.tinyGifTransparent],
+            mediaFilter: const [KlipyMediaFormat.tinyGifTransparent],
             pos: pos,
             limit: limit,
             sticker: true,

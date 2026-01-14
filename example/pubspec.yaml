@@ -1,19 +1,18 @@
-name: tenor_flutter_example
-description: "An example of how to use Tenor Flutter"
+name: klipy_flutter_example
+description: "An example of how to use KLIPY Flutter"
 publish_to: "none"
-
-version: 1.0.0+1
+version: 1.0.0
 
 environment:
   sdk: ">=3.2.6 <4.0.0"
 
 dependencies:
+  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   flutter_config: ^2.0.2
-  tenor_flutter:
+  klipy_flutter:
     path: ../
-  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:

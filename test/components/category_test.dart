@@ -1,22 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:tenor_flutter/src/components/components.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:klipy_flutter/src/components/components.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Category Widget >', () {
     testWidgets('If category is null, find nothing', (tester) async {
-      await tester.pumpWidget(
-        const TenorCategoryWidget(),
-      );
+      await tester.pumpWidget(const KlipyCategoryWidget());
 
       expect(find.byType(GestureDetector), findsNothing);
     });
 
     testWidgets('Keep hashtag', (tester) async {
-      final tenorCategoryTest = TenorCategory(
+      final klipyCategoryTest = KlipyCategoryObject(
         name: '#test',
         searchTerm: 'test search term',
         path: 'path/to/category',
@@ -26,11 +24,9 @@ void main() {
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
-          child: TenorCategoryWidget(
-            category: tenorCategoryTest,
-            style: const TenorCategoryStyle(
-              stripHashtag: false,
-            ),
+          child: KlipyCategoryWidget(
+            category: klipyCategoryTest,
+            style: const KlipyCategoryStyle(stripHashtag: false),
           ),
         ),
       );
@@ -40,7 +36,7 @@ void main() {
     });
 
     testWidgets('Strip hashtag', (tester) async {
-      final tenorCategoryTest = TenorCategory(
+      final klipyCategoryTest = KlipyCategoryObject(
         name: '#test',
         searchTerm: 'test search term',
         path: 'path/to/category',
@@ -50,11 +46,9 @@ void main() {
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
-          child: TenorCategoryWidget(
-            category: tenorCategoryTest,
-            style: const TenorCategoryStyle(
-              stripHashtag: true,
-            ),
+          child: KlipyCategoryWidget(
+            category: klipyCategoryTest,
+            style: const KlipyCategoryStyle(stripHashtag: true),
           ),
         ),
       );
@@ -68,7 +62,7 @@ void main() {
       bool hasTapped = false;
 
       // category to populate with
-      final tenorCategoryTest = TenorCategory(
+      final klipyCategoryTest = KlipyCategoryObject(
         name: 'test',
         searchTerm: 'test search term',
         path: 'path/to/category',
@@ -79,10 +73,10 @@ void main() {
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
-          child: TenorCategoryWidget(
-            category: tenorCategoryTest,
-            onTap: (tenorCategory) {
-              expect(tenorCategory, tenorCategoryTest);
+          child: KlipyCategoryWidget(
+            category: klipyCategoryTest,
+            onTap: (klipyCategory) {
+              expect(klipyCategory, klipyCategoryTest);
               hasTapped = true;
             },
           ),

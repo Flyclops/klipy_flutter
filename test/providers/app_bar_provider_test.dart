@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenor_flutter/src/providers/providers.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/src/providers/providers.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 void main() {
   const testQuery = 'some search query';
   const testDuration = Duration(milliseconds: 500);
   const testKeyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag;
-  final testCategory = TenorCategory(
+  final testCategory = KlipyCategoryObject(
     image: 'test image',
     name: 'test name',
     path: 'test path',
     searchTerm: 'test seach term',
   );
 
-  group('TenorAppBarProvider >', () {
+  group('KlipyAppBarProvider >', () {
     test('Initializes as expected', () async {
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,
@@ -30,7 +30,7 @@ void main() {
 
     test('Can set queryText', () async {
       const updatedQuery = 'updated query';
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,
@@ -44,7 +44,7 @@ void main() {
     });
 
     test('Can set selectedCategory', () async {
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,
@@ -58,7 +58,7 @@ void main() {
     });
 
     test('Resets selectedCategory when queryText cleared', () async {
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,

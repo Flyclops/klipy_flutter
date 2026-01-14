@@ -4,76 +4,75 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tenor_flutter/src/components/components.dart';
-import 'package:tenor_flutter/src/providers/app_bar_provider.dart';
-import 'package:tenor_flutter/src/providers/tab_provider.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/src/components/components.dart';
+import 'package:klipy_flutter/src/providers/app_bar_provider.dart';
+import 'package:klipy_flutter/src/providers/tab_provider.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 const featuredCategoryPath = '##trending-gifs';
 
-class TenorTabViewStyle {
+class KlipyTabViewStyle {
   final Color mediaBackgroundColor;
 
-  const TenorTabViewStyle({
-    this.mediaBackgroundColor = Colors.white,
-  });
+  const KlipyTabViewStyle({this.mediaBackgroundColor = Colors.white});
 }
 
-class TenorTabView extends StatefulWidget {
+class KlipyTabView extends StatefulWidget {
   final Widget Function(BuildContext, Widget?)? builder;
-  final TenorCategoryStyle categoryStyle;
-  final Tenor client;
+  final KlipyCategoryStyle categoryStyle;
+  final KlipyClient client;
   final String featuredCategory;
   final int gifsPerRow;
   final bool? keepAliveTabView;
-  final Future<TenorResponse?> Function(
+  final Future<KlipyResponse?> Function(
     String queryText,
     String? pos,
     int limit,
-    TenorCategory? category,
-  )? onLoad;
-  final Function(TenorResult? gif)? onSelected;
+    KlipyCategoryObject? category,
+  )?
+  onLoad;
+  final Function(KlipyResultObject? gif)? onSelected;
   final bool showCategories;
-  final TenorTabViewStyle style;
+  final KlipyTabViewStyle style;
 
-  const TenorTabView({
+  const KlipyTabView({
     required this.client,
     this.builder,
-    this.categoryStyle = const TenorCategoryStyle(),
+    this.categoryStyle = const KlipyCategoryStyle(),
     String? featuredCategory,
     int? gifsPerRow,
     this.keepAliveTabView,
     this.onLoad,
     this.onSelected,
     this.showCategories = false,
-    this.style = const TenorTabViewStyle(),
+    this.style = const KlipyTabViewStyle(),
     super.key,
-  })  : featuredCategory = featuredCategory ?? '📈 Featured',
-        gifsPerRow = gifsPerRow ?? 3;
+  }) : featuredCategory = featuredCategory ?? '📈 Featured',
+       gifsPerRow = gifsPerRow ?? 3;
 
   @override
-  State<TenorTabView> createState() => _TenorTabViewState();
+  State<KlipyTabView> createState() => _KlipyTabViewState();
 }
 
-class _TenorTabViewState extends State<TenorTabView>
+class _KlipyTabViewState extends State<KlipyTabView>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => widget.keepAliveTabView ?? true;
 
   // Tab Provider
-  late TenorTabProvider _tabProvider;
+  late KlipyTabProvider _tabProvider;
 
   // Scroll Controller
   late final ScrollController _scrollController;
 
   // AppBar Provider
-  late TenorAppBarProvider _appBarProvider;
+  late KlipyAppBarProvider _appBarProvider;
 
   // Collection
-  TenorResponse? _collection;
+  KlipyResponse? _collection;
 
   // List of gifs
-  List<TenorResult> _list = [];
+  List<KlipyResultObject> _list = [];
 
   // Direction
   final Axis _scrollDirection = Axis.vertical;
@@ -87,13 +86,13 @@ class _TenorTabViewState extends State<TenorTabView>
   // Offset
   String? offset;
 
-  List<TenorCategory?> _categories = [];
+  List<KlipyCategoryObject?> _categories = [];
 
-  /// The Tenor client so we can use the API.
-  late final Tenor client;
+  /// The KLIPY client so we can use the API.
+  late final KlipyClient client;
 
   /// The current tabs data.
-  late final TenorTab tab;
+  late final KlipyTab tab;
 
   /// The limit of gifs to request per load.
   late int requestLimit;
@@ -105,13 +104,13 @@ class _TenorTabViewState extends State<TenorTabView>
     client = widget.client;
 
     // Which tab are we?
-    tab = context.read<TenorTab>();
+    tab = context.read<KlipyTab>();
 
     // We should update this whenever the size changes eventually
     requestLimit = _calculateLimit();
 
     // AppBar Provider
-    _appBarProvider = Provider.of<TenorAppBarProvider>(context, listen: false);
+    _appBarProvider = Provider.of<KlipyAppBarProvider>(context, listen: false);
     _appBarProvider.addListener(_appBarProviderListener);
 
     // Scroll Controller
@@ -119,7 +118,7 @@ class _TenorTabViewState extends State<TenorTabView>
     _scrollController.addListener(_scrollControllerListener);
 
     // Tab Provider
-    _tabProvider = Provider.of<TenorTabProvider>(context, listen: false);
+    _tabProvider = Provider.of<KlipyTabProvider>(context, listen: false);
     _tabProvider.addListener(_tabProviderListener);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -146,9 +145,7 @@ class _TenorTabViewState extends State<TenorTabView>
   Widget build(BuildContext context) {
     super.build(context);
     if (_list.isEmpty && _categories.isEmpty) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (_appBarProvider.queryText.isEmpty &&
@@ -168,7 +165,7 @@ class _TenorTabViewState extends State<TenorTabView>
               final category = _categories[idx];
               return ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: TenorCategoryWidget(
+                child: KlipyCategoryWidget(
                   style: widget.categoryStyle,
                   category: category,
                   onTap: (selectedCategory) {
@@ -185,13 +182,11 @@ class _TenorTabViewState extends State<TenorTabView>
             },
             itemCount: _categories.length,
             mainAxisSpacing: 8,
-            // Add safe area padding if `TenorAttributionType.poweredBy` is disabled
+            // Add safe area padding if `KlipyAttributionType.poweredBy` is disabled
             padding:
-                _tabProvider.attributionType == TenorAttributionType.poweredBy
-                    ? null
-                    : EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom,
-                      ),
+                _tabProvider.attributionType == KlipyAttributionType.poweredBy
+                    ? EdgeInsets.zero
+                    : const EdgeInsets.only(bottom: 0),
             scrollDirection: _scrollDirection,
           ),
         ),
@@ -206,24 +201,24 @@ class _TenorTabViewState extends State<TenorTabView>
         crossAxisCount: widget.gifsPerRow,
         crossAxisSpacing: 8,
         keyboardDismissBehavior: _appBarProvider.keyboardDismissBehavior,
-        itemBuilder: (ctx, idx) => ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: TenorSelectableGif(
-            backgroundColor: widget.style.mediaBackgroundColor,
-            onTap: (selectedResult) => _selectedGif(
-              selectedResult,
+        itemBuilder:
+            (ctx, idx) => ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: KlipySelectableGif(
+                backgroundColor: widget.style.mediaBackgroundColor,
+                onTap: (selectedResult) => _selectedGif(selectedResult),
+                result: _list[idx],
+              ),
             ),
-            result: _list[idx],
-          ),
-        ),
         itemCount: _list.length,
         mainAxisSpacing: 8,
-        // Add safe area padding if `TenorAttributionType.poweredBy` is disabled
-        padding: _tabProvider.attributionType == TenorAttributionType.poweredBy
-            ? null
-            : EdgeInsets.only(
-                bottom: MediaQuery.of(context).padding.bottom,
-              ),
+        // Add safe area padding if `KlipyAttributionType.poweredBy` is disabled
+        padding:
+            _tabProvider.attributionType == KlipyAttributionType.poweredBy
+                ? null
+                : EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom,
+                ),
         scrollDirection: _scrollDirection,
       ),
     );
@@ -232,8 +227,8 @@ class _TenorTabViewState extends State<TenorTabView>
   // Estimate the request limit based on the visible area. Doesn't need to be precise.
   // This function assumes all gifs are 1:1 aspect ratio for simplicity.
   int _calculateLimit() {
-    // Tenor has a hard limit of 50 per request
-    const int tenorRequestLimit = 50;
+    // KLIPY has a hard limit of 50 per request
+    const int klipyRequestLimit = 50;
     // Call this here so we get updated constraints in case of size change
     final constraints = context.read<BoxConstraints>();
     // The width of each gif (estimated)
@@ -242,9 +237,9 @@ class _TenorTabViewState extends State<TenorTabView>
     final gifRowCount = (constraints.maxHeight / gifWidth).round();
     // Based on estimates, how many gifs can we fit into the TabView
     final calculatedRequestLimit = widget.gifsPerRow * gifRowCount;
-    // If the limit is greater than Tenor's hard limit, cap it
-    return calculatedRequestLimit > tenorRequestLimit
-        ? tenorRequestLimit
+    // If the limit is greater than KLIPY's hard limit, cap it
+    return calculatedRequestLimit > klipyRequestLimit
+        ? klipyRequestLimit
         : calculatedRequestLimit;
   }
 
@@ -278,13 +273,13 @@ class _TenorTabViewState extends State<TenorTabView>
 
   Future<void> _loadCatagories() async {
     try {
-      final fromTenor = await client.categories();
+      final fromKlipy = await client.categories();
       final featuredGifResponse = await client.featured(limit: 1);
       final featuredGif = featuredGifResponse?.results.first;
       if (featuredGif != null) {
-        fromTenor.insert(
+        fromKlipy.insert(
           0,
-          TenorCategory(
+          KlipyCategoryObject(
             image: featuredGif.media.tinyGif?.url ?? '',
             name: widget.featuredCategory,
             path: featuredCategoryPath,
@@ -294,7 +289,7 @@ class _TenorTabViewState extends State<TenorTabView>
       }
 
       setState(() {
-        _categories = fromTenor;
+        _categories = fromKlipy;
       });
     } catch (e) {
       //
@@ -354,9 +349,9 @@ class _TenorTabViewState extends State<TenorTabView>
           _isLoading = false;
         });
       }
-    } on TenorNetworkException {
+    } on KlipyNetworkException {
       _isLoading = false;
-    } on TenorApiException {
+    } on KlipyApiException {
       _isLoading = false;
     } catch (e) {
       _isLoading = false;
@@ -369,27 +364,23 @@ class _TenorTabViewState extends State<TenorTabView>
   }
 
   // Return selected gif
-  void _selectedGif(TenorResult gif) {
+  void _selectedGif(KlipyResultObject gif) {
     try {
-      // https://developers.google.com/tenor/guides/endpoints#register-share
+      // https://docs.klipy.com/migrate-from-tenor/register-share
       client.registerShare(gif.id, search: _appBarProvider.queryText);
     } catch (e) {
       // do nothing if it fails
     }
 
     // return result to the consumer
-    Navigator.pop(
-      context,
-      gif.copyWith(
-        source: _tabProvider.selectedTab.name,
-      ),
-    );
+    Navigator.pop(context, gif.copyWith(source: _tabProvider.selectedTab.name));
   }
 
   // if you scroll within a threshhold of the bottom of the screen, load more gifs
   void _scrollControllerListener() {
     // trending-gifs, etc
-    final customCategorySelected = _appBarProvider.selectedCategory != null &&
+    final customCategorySelected =
+        _appBarProvider.selectedCategory != null &&
         _appBarProvider.queryText == '';
 
     if (customCategorySelected ||
