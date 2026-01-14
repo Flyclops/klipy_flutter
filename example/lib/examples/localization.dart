@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class Localization extends StatefulWidget {
   const Localization({super.key});
@@ -11,13 +11,13 @@ class Localization extends StatefulWidget {
 
 class LocalizationState extends State<Localization> {
   // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
-  var tenor = Tenor(
-    apiKey: FlutterConfig.get('TENOR_API_KEY'),
+  var tenor = KlipyClient(
+    apiKey: FlutterConfig.get('KLIPY_API_KEY'),
     country: 'es',
     locale: 'es_ES',
   );
   // define a result that we can display later
-  TenorResult? selectedResult;
+  KlipyResultsObject? selectedResult;
 
   @override
   Widget build(BuildContext context) {

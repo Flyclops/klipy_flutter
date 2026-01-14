@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class DarkTheme extends StatefulWidget {
   const DarkTheme({super.key});
@@ -11,9 +11,9 @@ class DarkTheme extends StatefulWidget {
 
 class DarkThemeState extends State<DarkTheme> {
   // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
-  var tenor = Tenor(apiKey: FlutterConfig.get('TENOR_API_KEY'));
+  var tenor = KlipyClient(apiKey: FlutterConfig.get('KLIPY_API_KEY'));
   // define a result that we can display later
-  TenorResult? selectedResult;
+  KlipyResultsObject? selectedResult;
 
   @override
   Widget build(BuildContext context) {

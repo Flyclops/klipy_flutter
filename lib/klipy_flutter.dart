@@ -1,5 +1,5 @@
 // hide Tenor so we can extend it
-export 'package:tenor_dart/tenor_dart.dart' hide Tenor;
+export 'package:klipy_dart/klipy_dart.dart' hide KlipyClient;
 
 export 'src/tenor.dart';
 
@@ -9,6 +9,7 @@ export 'src/components/search_field.dart'
     show TenorSelectedCategoryStyle, TenorSearchFieldStyle;
 export 'src/components/tab_bar.dart' show TenorTabBarStyle;
 export 'src/components/tab_view.dart' show TenorTabView, TenorTabViewStyle;
+export 'src/components/media_widget.dart' show KlipyMediaWidget;
 export 'src/components/tab_view_emojis.dart';
 export 'src/components/tab_view_gifs.dart';
 export 'src/components/tab_view_stickers.dart';

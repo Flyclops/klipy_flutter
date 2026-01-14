@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:tenor_flutter/src/providers/app_bar_provider.dart';
-import 'package:tenor_flutter/src/providers/sheet_provider.dart';
-import 'package:tenor_flutter/src/utilities/debouncer.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
+import 'package:klipy_flutter/src/providers/app_bar_provider.dart';
+import 'package:klipy_flutter/src/providers/sheet_provider.dart';
+import 'package:klipy_flutter/src/utilities/debouncer.dart';
 
 class TenorSelectedCategoryStyle {
   final double height;
@@ -18,10 +18,7 @@ class TenorSelectedCategoryStyle {
 
   const TenorSelectedCategoryStyle({
     this.height = 52,
-    this.padding = const EdgeInsets.only(
-      left: 14,
-      top: 1,
-    ),
+    this.padding = const EdgeInsets.only(left: 14, top: 1),
     this.icon = const Icon(
       Icons.arrow_back_ios_new,
       size: 15,
@@ -100,16 +97,13 @@ class _TenorSearchFieldState extends State<TenorSearchField> {
     _appBarProvider.addListener(_listenerQuery);
 
     // Set Texfield Controller
-    _textEditingController = widget.searchFieldController ??
-        TextEditingController(
-          text: _appBarProvider.queryText,
-        );
+    _textEditingController =
+        widget.searchFieldController ??
+        TextEditingController(text: _appBarProvider.queryText);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Establish the debouncer
-      final debouncer = TenorDebouncer(
-        delay: _appBarProvider.debounce,
-      );
+      final debouncer = TenorDebouncer(delay: _appBarProvider.debounce);
 
       // Listener TextField
       _textEditingController.addListener(() {
@@ -218,7 +212,8 @@ class _TenorSearchFieldState extends State<TenorSearchField> {
                       padding: const EdgeInsets.all(8),
                       child: Icon(
                         Icons.clear,
-                        color: widget.style.hintStyle.color ??
+                        color:
+                            widget.style.hintStyle.color ??
                             const Color(0xFF8A8A86),
                         size: 20,
                       ),

@@ -1,11 +1,11 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class TenorSelectableGif extends StatelessWidget {
   final Color backgroundColor;
-  final Function(TenorResult)? onTap;
-  final TenorResult result;
+  final Function(KlipyResultsObject)? onTap;
+  final KlipyResultsObject result;
 
   const TenorSelectableGif({
     required this.result,

@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class TenorAppBarProvider with ChangeNotifier {
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
   String _queryText = '';
   String get queryText => _queryText;
-  TenorCategory? _selectedCategory;
+  KlipyCategoryObject? _selectedCategory;
 
   Duration _debounce = Duration.zero;
   Duration get debounce => _debounce;
@@ -24,15 +24,15 @@ class TenorAppBarProvider with ChangeNotifier {
     String queryText,
     Duration debounce, {
     required this.keyboardDismissBehavior,
-    TenorCategory? selectedCategory,
-  })  : _selectedCategory = selectedCategory,
-        super() {
+    KlipyCategoryObject? selectedCategory,
+  }) : _selectedCategory = selectedCategory,
+       super() {
     _queryText = queryText;
     _debounce = debounce;
   }
 
-  TenorCategory? get selectedCategory => _selectedCategory;
-  set selectedCategory(TenorCategory? newCategory) {
+  KlipyCategoryObject? get selectedCategory => _selectedCategory;
+  set selectedCategory(KlipyCategoryObject? newCategory) {
     _selectedCategory = newCategory;
     notifyListeners();
   }

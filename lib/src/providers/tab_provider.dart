@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class TenorTabProvider with ChangeNotifier {
   TenorAttributionType attributionType;
-  Tenor client;
+  KlipyClient client;
   TenorTab _selectedTab;
 
   TenorTabProvider({

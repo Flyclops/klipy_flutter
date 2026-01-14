@@ -7,10 +7,8 @@ class TenorAttributionStyle {
 
   const TenorAttributionStyle({
     this.brightnes = Brightness.light,
-    this.height = 15,
-    this.padding = const EdgeInsets.symmetric(
-      vertical: 8,
-    ),
+    this.height = 20,
+    this.padding = const EdgeInsets.symmetric(vertical: 8),
   });
 }
 
@@ -24,36 +22,30 @@ class TenorAttribution extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String logoPath =
+        style.brightnes == Brightness.light
+            ? 'powered_by_dark.png'
+            : 'powered_by_light.png';
     return Padding(
       // If safe area is required, add it.
-      padding: MediaQuery.of(context).padding.bottom > 0
-          ? style.padding.copyWith(
-              bottom: MediaQuery.of(context).padding.bottom,
-            )
-          : style.padding,
+      padding:
+          MediaQuery.of(context).padding.bottom > 0
+              ? style.padding.copyWith(
+                bottom: MediaQuery.of(context).padding.bottom,
+              )
+              : style.padding,
       child: Center(
-        child: _logo(context),
-      ),
-    );
-  }
-
-  Widget _logo(BuildContext context) {
-    String logoPath = style.brightnes == Brightness.light
-        ? 'powered_by_dark.png'
-        : 'powered_by_light.png';
-
-    return Container(
-      height: style.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.fitHeight,
-          image: AssetImage(
+        child: Container(
+          alignment: Alignment.center,
+          width: double.infinity,
+          child: Image.asset(
             'assets/$logoPath',
-            package: 'tenor_flutter',
+            package: 'klipy_flutter',
+            height: style.height,
+            fit: BoxFit.contain,
           ),
         ),
       ),
-      width: double.infinity,
     );
   }
 }

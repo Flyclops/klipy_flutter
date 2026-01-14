@@ -1,15 +1,14 @@
 // ignore_for_file: implementation_imports
 import 'package:flutter/material.dart';
+import 'package:klipy_flutter/src/components/attribution.dart';
+import 'package:klipy_flutter/src/components/drag_handle.dart';
+import 'package:klipy_flutter/src/components/search_field.dart';
+import 'package:klipy_flutter/src/components/tab_bar.dart';
+import 'package:klipy_flutter/src/models/attribution.dart';
+import 'package:klipy_flutter/src/models/tab.dart';
+import 'package:klipy_flutter/src/providers/providers.dart';
+import 'package:klipy_flutter/src/tenor.dart';
 import 'package:provider/provider.dart';
-import 'package:tenor_flutter/src/components/attribution.dart';
-
-import 'package:tenor_flutter/src/components/drag_handle.dart';
-import 'package:tenor_flutter/src/components/search_field.dart';
-import 'package:tenor_flutter/src/components/tab_bar.dart';
-import 'package:tenor_flutter/src/models/attribution.dart';
-import 'package:tenor_flutter/src/models/tab.dart';
-import 'package:tenor_flutter/src/providers/providers.dart';
-import 'package:tenor_flutter/src/tenor.dart';
 
 class TenorSheet extends StatefulWidget {
   final TenorAttributionType attributionType;
@@ -132,8 +131,9 @@ class _TenorSheetState extends State<TenorSheet>
       onNotification: (notification) {
         // Fix a weird bug where the sheet doesn't snap to the minExtent
         // Ends in something like 0.5000000000000001 instead of 0.5
-        final extent =
-            double.parse(notification.extent.toStringAsPrecision(15));
+        final extent = double.parse(
+          notification.extent.toStringAsPrecision(15),
+        );
         if (extent == sheetProvider.minExtent) {
           sheetProvider.scrollController.jumpTo(sheetProvider.minExtent);
         }
@@ -143,13 +143,15 @@ class _TenorSheetState extends State<TenorSheet>
         controller: sheetProvider.scrollController,
         expand: false,
         // just in case we calculate a smaller maxChildSize than initialChildSize
-        initialChildSize: sheetProvider.initialExtent > maxChildSize
-            ? maxChildSize
-            : sheetProvider.initialExtent,
+        initialChildSize:
+            sheetProvider.initialExtent > maxChildSize
+                ? maxChildSize
+                : sheetProvider.initialExtent,
         maxChildSize: maxChildSize,
-        minChildSize: sheetProvider.minExtent > maxChildSize
-            ? maxChildSize
-            : sheetProvider.minExtent,
+        minChildSize:
+            sheetProvider.minExtent > maxChildSize
+                ? maxChildSize
+                : sheetProvider.minExtent,
         snap: true,
         snapSizes: widget.snapSizes,
         builder: (context, scrollController) {
@@ -164,9 +166,7 @@ class _TenorSheetState extends State<TenorSheet>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const TenorDragHandle(
-                        style: TenorDragHandleStyle(),
-                      ),
+                      const TenorDragHandle(style: TenorDragHandleStyle()),
                       if (canShowTabs)
                         TenorTabBar(
                           style: widget.style.tabBarStyle,
@@ -184,32 +184,33 @@ class _TenorSheetState extends State<TenorSheet>
                         style: widget.style.searchFieldStyle,
                       ),
                       Expanded(
-                        child: (canShowTabs)
-                            ? TabBarView(
-                                controller: tabController,
-                                children: widget.tabs
-                                    .map(
-                                      (tab) => MultiProvider(
-                                        providers: [
-                                          Provider<BoxConstraints>(
-                                            create: (context) => constraints,
-                                          ),
-                                          Provider<TenorTab>(
-                                            create: (context) => tab,
-                                          ),
-                                        ],
-                                        child: tab.view,
-                                      ),
-                                    )
-                                    .toList(),
-                              )
-                            : widget.tabs.first.view,
+                        child:
+                            (canShowTabs)
+                                ? TabBarView(
+                                  controller: tabController,
+                                  children:
+                                      widget.tabs
+                                          .map(
+                                            (tab) => MultiProvider(
+                                              providers: [
+                                                Provider<BoxConstraints>(
+                                                  create:
+                                                      (context) => constraints,
+                                                ),
+                                                Provider<TenorTab>(
+                                                  create: (context) => tab,
+                                                ),
+                                              ],
+                                              child: tab.view,
+                                            ),
+                                          )
+                                          .toList(),
+                                )
+                                : widget.tabs.first.view,
                       ),
                       if (widget.attributionType ==
                           TenorAttributionType.poweredBy)
-                        TenorAttribution(
-                          style: widget.style.attributionStyle,
-                        ),
+                        TenorAttribution(style: widget.style.attributionStyle),
                     ],
                   ),
                 ),

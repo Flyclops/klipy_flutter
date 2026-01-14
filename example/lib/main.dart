@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
-import 'package:tenor_flutter_example/examples/dark_theme.dart';
-import 'package:tenor_flutter_example/examples/localization.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
+import 'package:klipy_flutter_example/examples/dark_theme.dart';
+import 'package:klipy_flutter_example/examples/localization.dart';
 
 void main() async {
   // only used to load api key from .env file, not required
@@ -36,9 +36,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
-  var tenor = Tenor(apiKey: FlutterConfig.get('TENOR_API_KEY'));
+  var tenor = KlipyClient(apiKey: FlutterConfig.get('KLIPY_API_KEY'));
   // define a result that we can display later
-  TenorResult? selectedResult;
+  KlipyResultsObject? selectedResult;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // Additional examples, see: https://github.com/Flyclops/tenor_flutter/tree/main/example/lib/examples
+  // Additional examples, see: https://github.com/Flyclops/klipy_flutter/tree/main/example/lib/examples
   Widget _exampleBody() {
     final selectedGif = selectedResult?.media.tinyGif ??
         selectedResult?.media.tinyGifTransparent;
@@ -87,12 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: WrapAlignment.center,
                   spacing: 8,
                   children: [
-                    // https://github.com/Flyclops/tenor_flutter/tree/main/example/lib/examples/dark_theme.dart
+                    // https://github.com/Flyclops/klipy_flutter/tree/main/example/lib/examples/dark_theme.dart
                     ElevatedButton(
                       onPressed: () => push(const DarkTheme()),
                       child: const Text('Dark Theme'),
                     ),
-                    // https://github.com/Flyclops/tenor_flutter/tree/main/example/lib/examples/localization.dart
+                    // https://github.com/Flyclops/klipy_flutter/tree/main/example/lib/examples/localization.dart
                     ElevatedButton(
                       onPressed: () => push(const Localization()),
                       child: const Text('Localization'),
@@ -106,10 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               selectedResult != null && selectedGif != null
-                  ? Image.network(
-                      selectedGif.url,
-                      width: selectedGif.dimensions.width,
-                      height: selectedGif.dimensions.height,
+                  ? KlipyMediaWidget(
+                      media: Image.network(
+                        selectedGif.url,
+                        width: selectedGif.dimensions.width,
+                        height: selectedGif.dimensions.height,
+                      ),
                     )
                   : const Text('No GIF selected'),
               selectedGif != null

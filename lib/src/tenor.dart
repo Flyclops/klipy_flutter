@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tenor_dart/tenor_dart.dart' as tenor_dart;
+import 'package:klipy_dart/klipy_dart.dart' as klipy_dart;
 
-import 'package:tenor_flutter/src/components/components.dart';
-import 'package:tenor_flutter/src/providers/providers.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/src/components/components.dart';
+import 'package:klipy_flutter/src/providers/providers.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 const tenorDefaultAnimationStyle = AnimationStyle(
   duration: Duration(milliseconds: 250),
@@ -36,21 +36,17 @@ class TenorStyle {
     this.searchFieldStyle = const TenorSearchFieldStyle(),
     this.selectedCategoryStyle = const TenorSelectedCategoryStyle(),
     this.shape = const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(8),
-      ),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
     ),
     this.tabBarStyle = const TenorTabBarStyle(),
     this.tabViewStyle = const TenorTabViewStyle(),
   });
 }
 
-class Tenor extends tenor_dart.Tenor {
-  const Tenor({
+class KlipyClient extends klipy_dart.KlipyClient {
+  const KlipyClient({
     required super.apiKey,
-    super.client = const tenor_dart.TenorHttpClient(),
-    super.clientKey,
-    super.contentFilter = TenorContentFilter.off,
+    super.client = const klipy_dart.KlipyHttpClient(),
     super.country = 'US',
     super.locale = 'en_US',
     super.networkTimeout = const Duration(seconds: 5),
@@ -61,7 +57,7 @@ class Tenor extends tenor_dart.Tenor {
   /// If you pass in a `searchFieldWidget` you must also pass in a `searchFieldController`. The controller will automatically be disposed of.
   ///
   /// You must have one valid form of [Tenor attribution](https://developers.google.com/tenor/guides/attribution) in order to use this within your app.
-  Future<TenorResult?> showAsBottomSheet({
+  Future<KlipyResultsObject?> showAsBottomSheet({
     required BuildContext context,
     TenorAttributionType attributionType = TenorAttributionType.poweredBy,
     // Whether to cover the app bar with the bottom sheet.
@@ -75,7 +71,7 @@ class Tenor extends tenor_dart.Tenor {
     double minExtent = 0.7,
     String queryText = '',
     TextEditingController? searchFieldController,
-    String searchFieldHintText = 'Search Tenor',
+    String searchFieldHintText = 'Search KLIPY',
     Widget? searchFieldWidget,
     // A list of target sizes that the showModalBottomSheet should snap to.
     // The [minChildSize] and [maxChildSize] are implicitly included in snap sizes and do not need to be specified here.
@@ -84,32 +80,24 @@ class Tenor extends tenor_dart.Tenor {
     List<TenorTab>? tabs,
     bool useSafeArea = true,
   }) {
-    final tabsToDisplay = tabs ??
+    final tabsToDisplay =
+        tabs ??
         [
           TenorTab(
             name: 'Emojis',
-            view: TenorViewEmojis(
-              client: this,
-              style: style.tabViewStyle,
-            ),
+            view: TenorViewEmojis(client: this, style: style.tabViewStyle),
           ),
           TenorTab(
             name: 'GIFs',
-            view: TenorViewGifs(
-              client: this,
-              style: style.tabViewStyle,
-            ),
+            view: TenorViewGifs(client: this, style: style.tabViewStyle),
           ),
           TenorTab(
             name: 'Stickers',
-            view: TenorViewStickers(
-              client: this,
-              style: style.tabViewStyle,
-            ),
+            view: TenorViewStickers(client: this, style: style.tabViewStyle),
           ),
         ];
 
-    return showModalBottomSheet<TenorResult>(
+    return showModalBottomSheet<KlipyResultsObject>(
       clipBehavior: Clip.antiAlias,
       context: context,
       isScrollControlled: true,
@@ -118,9 +106,7 @@ class Tenor extends tenor_dart.Tenor {
       useSafeArea: useSafeArea,
       builder: (context) {
         return DefaultTextStyle.merge(
-          style: TextStyle(
-            fontFamily: style.fontFamily,
-          ),
+          style: TextStyle(fontFamily: style.fontFamily),
           child: Padding(
             padding: EdgeInsets.only(
               // move the sheet up when the keyboard is shown
@@ -129,26 +115,29 @@ class Tenor extends tenor_dart.Tenor {
             child: MultiProvider(
               providers: [
                 ChangeNotifierProvider(
-                  create: (context) => TenorAppBarProvider(
-                    queryText,
-                    debounce,
-                    keyboardDismissBehavior: keyboardDismissBehavior,
-                  ),
+                  create:
+                      (context) => TenorAppBarProvider(
+                        queryText,
+                        debounce,
+                        keyboardDismissBehavior: keyboardDismissBehavior,
+                      ),
                 ),
                 ChangeNotifierProvider(
-                  create: (context) => TenorSheetProvider(
-                    initialExtent: initialExtent,
-                    maxExtent: maxExtent,
-                    minExtent: minExtent,
-                    scrollController: DraggableScrollableController(),
-                  ),
+                  create:
+                      (context) => TenorSheetProvider(
+                        initialExtent: initialExtent,
+                        maxExtent: maxExtent,
+                        minExtent: minExtent,
+                        scrollController: DraggableScrollableController(),
+                      ),
                 ),
                 ChangeNotifierProvider(
-                  create: (context) => TenorTabProvider(
-                    attributionType: attributionType,
-                    client: this,
-                    selectedTab: tabsToDisplay[initialTabIndex],
-                  ),
+                  create:
+                      (context) => TenorTabProvider(
+                        attributionType: attributionType,
+                        client: this,
+                        selectedTab: tabsToDisplay[initialTabIndex],
+                      ),
                 ),
               ],
               child: TenorSheet(

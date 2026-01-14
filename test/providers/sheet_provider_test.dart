@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenor_flutter/src/providers/providers.dart';
+import 'package:klipy_flutter/src/providers/providers.dart';
 
 void main() {
   const testMinExtent = 0.7;

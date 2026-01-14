@@ -1,6 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tenor_dart/tenor_dart.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class TenorCategoryStyle {
   /// Allows you to set a fallback decoration for people to see if the image loads slow or fails.
@@ -22,9 +22,7 @@ class TenorCategoryStyle {
   final EdgeInsets padding;
 
   const TenorCategoryStyle({
-    this.decoration = const BoxDecoration(
-      color: Color(0xFFBEB9AC),
-    ),
+    this.decoration = const BoxDecoration(color: Color(0xFFBEB9AC)),
     this.height = 100,
     this.imageOverlayColor = const Color.fromRGBO(0, 0, 0, 0.5),
     this.padding = const EdgeInsets.all(8),
@@ -38,8 +36,8 @@ class TenorCategoryStyle {
 }
 
 class TenorCategoryWidget extends StatelessWidget {
-  final TenorCategory? category;
-  final Function(TenorCategory)? onTap;
+  final KlipyCategoryObject? category;
+  final Function(KlipyCategoryObject)? onTap;
   final TenorCategoryStyle style;
 
   const TenorCategoryWidget({
@@ -52,14 +50,14 @@ class TenorCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // for promotion
-    final tenorCategory = category;
-    final tenorCategoryImage = tenorCategory?.image;
+    final klipyCategory = category;
+    final klipyCategoryImage = klipyCategory?.image;
 
     // early out
-    if (tenorCategory == null) return const SizedBox.shrink();
+    if (klipyCategory == null) return const SizedBox.shrink();
 
     return GestureDetector(
-      onTap: () => onTap?.call(tenorCategory),
+      onTap: () => onTap?.call(klipyCategory),
       child: Container(
         height: style.height,
         decoration: style.decoration,
@@ -67,9 +65,9 @@ class TenorCategoryWidget extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            if (tenorCategoryImage != null && tenorCategoryImage.isNotEmpty)
+            if (klipyCategoryImage != null && klipyCategoryImage.isNotEmpty)
               ExtendedImage.network(
-                tenorCategoryImage,
+                klipyCategoryImage,
                 cache: true,
                 gaplessPlayback: true,
                 fit: BoxFit.cover,
@@ -81,9 +79,9 @@ class TenorCategoryWidget extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  style.stripHashtag && tenorCategory.name.startsWith('#')
-                      ? tenorCategory.name.substring(1)
-                      : tenorCategory.name,
+                  style.stripHashtag && klipyCategory.name.startsWith('#')
+                      ? klipyCategory.name.substring(1)
+                      : klipyCategory.name,
                   style: style.textStyle,
                 ),
               ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tenor_flutter/src/utilities/is_tablet.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/src/utilities/is_tablet.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 
 class TenorViewStickers extends StatelessWidget {
-  final Tenor client;
+  final KlipyClient client;
   final int? gifsPerRow;
   final TenorTabViewStyle style;
 
@@ -24,14 +24,14 @@ class TenorViewStickers extends StatelessWidget {
         if (queryText.isNotEmpty) {
           return await client.search(
             queryText,
-            mediaFilter: const [TenorMediaFormat.tinyGifTransparent],
+            mediaFilter: const [KlipyMediaFormat.tinyGifTransparent],
             pos: pos,
             limit: limit,
             sticker: true,
           );
         } else {
           return await client.featured(
-            mediaFilter: const [TenorMediaFormat.tinyGifTransparent],
+            mediaFilter: const [KlipyMediaFormat.tinyGifTransparent],
             pos: pos,
             limit: limit,
             sticker: true,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tenor_flutter/src/components/components.dart';
-import 'package:tenor_flutter/tenor_flutter.dart';
+import 'package:klipy_flutter/src/components/components.dart';
+import 'package:klipy_flutter/klipy_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'mocks/mocks.dart';
@@ -9,15 +9,15 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Tenor >', () {
-    const tenorClient = Tenor(apiKey: '12345');
+    const tenorClient = KlipyClient(apiKey: '12345');
 
     test('Make sure it is the right type', () {
-      expect(tenorClient, isA<Tenor>());
+      expect(tenorClient, isA<KlipyClient>());
     });
   });
 
   testWidgets('Make sure bottom sheet opens and closes', (tester) async {
-    final tenorClient = Tenor(
+    final tenorClient = KlipyClient(
       apiKey: '12345',
       client: MockTenorHttpClient(),
     );

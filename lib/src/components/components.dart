@@ -9,3 +9,4 @@ export 'tab_view.dart';
 export 'tab_view_emojis.dart';
 export 'tab_view_gifs.dart';
 export 'tab_view_stickers.dart';
+export 'media_widget.dart';
