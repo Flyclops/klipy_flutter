@@ -67,6 +67,7 @@ final KlipyResultObject? result = await klipyClient.showAsBottomSheet(context: c
 print(result?.media.tinyGif?.url);
 ```
 ## Migrating from `tenor_flutter` to `klipy_flutter`
+- [Get an API key](https://github.com/Flyclops/klipy_flutter/tree/main?tab=readme-ov-file#obtaining-klipy-api-key) and update it in your app
 - Change all references of:
   - `import 'package:tenor_flutter/tenor_flutter.dart';` to `import 'package:klipy_flutter/klipy_flutter.dart';`
   - `TenorResult` to `KlipyResultObject`
@@ -79,6 +80,7 @@ print(result?.media.tinyGif?.url);
     - If you would like to distinguish between projects/devices then consider creating seperate [API keys](https://partner.klipy.com/api-keys) under the same platform. 
   - `contentFilter`
     - This can be set in the [Partner Panel](https://docs.klipy.com/migrate-from-tenor/content-filtering)
+- Update attribution to [support KLIPY rules](https://docs.klipy.com/attribution)
 
 
 ## Don't need the UI?
