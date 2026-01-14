@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-class TenorAttributionStyle {
+class KlipyAttributionStyle {
   final Brightness brightnes;
   final double height;
   final EdgeInsets padding;
 
-  const TenorAttributionStyle({
+  const KlipyAttributionStyle({
     this.brightnes = Brightness.light,
     this.height = 20,
     this.padding = const EdgeInsets.symmetric(vertical: 8),
   });
 }
 
-class TenorAttribution extends StatelessWidget {
-  final TenorAttributionStyle style;
+class KlipyAttribution extends StatelessWidget {
+  final KlipyAttributionStyle style;
 
-  const TenorAttribution({
-    this.style = const TenorAttributionStyle(),
+  const KlipyAttribution({
+    this.style = const KlipyAttributionStyle(),
     super.key,
   });
 

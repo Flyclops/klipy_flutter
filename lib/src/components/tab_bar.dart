@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TenorTabBarStyle {
+class KlipyTabBarStyle {
   final Decoration decoration;
   final Decoration indicator;
   final Color labelColor;
@@ -14,18 +14,12 @@ class TenorTabBarStyle {
   final Color unselectedLabelColor;
   final TextStyle unselectedLabelStyle;
 
-  const TenorTabBarStyle({
+  const KlipyTabBarStyle({
     this.decoration = const BoxDecoration(
       color: Color(0xFFEDE7D7),
       border: Border.symmetric(
-        horizontal: BorderSide(
-          color: Color(0xFFEDE7D7),
-          width: 2,
-        ),
-        vertical: BorderSide(
-          color: Color(0xFFEDE7D7),
-          width: 2,
-        ),
+        horizontal: BorderSide(color: Color(0xFFEDE7D7), width: 2),
+        vertical: BorderSide(color: Color(0xFFEDE7D7), width: 2),
       ),
       borderRadius: BorderRadius.all(Radius.circular(8)),
     ),
@@ -63,10 +57,7 @@ class TenorTabBarStyle {
       fontWeight: FontWeight.bold,
     ),
     this.height = 30,
-    this.margin = const EdgeInsets.only(
-      left: 8,
-      right: 8,
-    ),
+    this.margin = const EdgeInsets.only(left: 8, right: 8),
     this.unselectedLabelColor = const Color(0xFF3B3B3B),
     this.unselectedLabelStyle = const TextStyle(
       decoration: TextDecoration.none,
@@ -76,15 +67,15 @@ class TenorTabBarStyle {
   });
 }
 
-class TenorTabBar extends StatelessWidget {
+class KlipyTabBar extends StatelessWidget {
   final TabController tabController;
   final List<String> tabs;
-  final TenorTabBarStyle style;
+  final KlipyTabBarStyle style;
 
-  const TenorTabBar({
+  const KlipyTabBar({
     required this.tabController,
     required this.tabs,
-    this.style = const TenorTabBarStyle(),
+    this.style = const KlipyTabBarStyle(),
     super.key,
   });
 

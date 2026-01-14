@@ -7,21 +7,21 @@ import 'package:klipy_flutter/src/components/tab_bar.dart';
 import 'package:klipy_flutter/src/models/attribution.dart';
 import 'package:klipy_flutter/src/models/tab.dart';
 import 'package:klipy_flutter/src/providers/providers.dart';
-import 'package:klipy_flutter/src/tenor.dart';
+import 'package:klipy_flutter/src/klipy_client.dart';
 import 'package:provider/provider.dart';
 
-class TenorSheet extends StatefulWidget {
-  final TenorAttributionType attributionType;
+class KlipySheet extends StatefulWidget {
+  final KlipyAttributionType attributionType;
   final bool coverAppBar;
   final int initialTabIndex;
   final TextEditingController? searchFieldController;
   final String searchFieldHintText;
   final Widget? searchFieldWidget;
-  final TenorStyle style;
+  final KlipyStyle style;
   final List<double>? snapSizes;
-  final List<TenorTab> tabs;
+  final List<KlipyTab> tabs;
 
-  const TenorSheet({
+  const KlipySheet({
     required this.attributionType,
     required this.coverAppBar,
     required this.searchFieldHintText,
@@ -35,21 +35,21 @@ class TenorSheet extends StatefulWidget {
   });
 
   @override
-  State<TenorSheet> createState() => _TenorSheetState();
+  State<KlipySheet> createState() => _KlipySheetState();
 }
 
-class _TenorSheetState extends State<TenorSheet>
+class _KlipySheetState extends State<KlipySheet>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  late TenorSheetProvider sheetProvider;
-  late TenorTabProvider tabProvider;
+  late KlipySheetProvider sheetProvider;
+  late KlipyTabProvider tabProvider;
   late final bool canShowTabs;
 
   @override
   void initState() {
     super.initState();
 
-    tabProvider = Provider.of<TenorTabProvider>(context, listen: false);
+    tabProvider = Provider.of<KlipyTabProvider>(context, listen: false);
 
     canShowTabs = widget.tabs.length > 1;
     if (canShowTabs) {
@@ -69,7 +69,7 @@ class _TenorSheetState extends State<TenorSheet>
 
   @override
   void didChangeDependencies() {
-    sheetProvider = Provider.of<TenorSheetProvider>(context, listen: false);
+    sheetProvider = Provider.of<KlipySheetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -166,14 +166,14 @@ class _TenorSheetState extends State<TenorSheet>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const TenorDragHandle(style: TenorDragHandleStyle()),
+                      const KlipyDragHandle(style: KlipyDragHandleStyle()),
                       if (canShowTabs)
-                        TenorTabBar(
+                        KlipyTabBar(
                           style: widget.style.tabBarStyle,
                           tabController: tabController,
                           tabs: widget.tabs.map((tab) => tab.name).toList(),
                         ),
-                      TenorSearchField(
+                      KlipySearchField(
                         animationStyle: widget.style.animationStyle,
                         hintText: widget.searchFieldHintText,
                         scrollController: scrollController,
@@ -197,7 +197,7 @@ class _TenorSheetState extends State<TenorSheet>
                                                   create:
                                                       (context) => constraints,
                                                 ),
-                                                Provider<TenorTab>(
+                                                Provider<KlipyTab>(
                                                   create: (context) => tab,
                                                 ),
                                               ],
@@ -209,8 +209,8 @@ class _TenorSheetState extends State<TenorSheet>
                                 : widget.tabs.first.view,
                       ),
                       if (widget.attributionType ==
-                          TenorAttributionType.poweredBy)
-                        TenorAttribution(style: widget.style.attributionStyle),
+                          KlipyAttributionType.poweredBy)
+                        KlipyAttribution(style: widget.style.attributionStyle),
                     ],
                   ),
                 ),

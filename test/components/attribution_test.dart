@@ -12,8 +12,8 @@ void main() {
       await tester.pumpWidget(
         const MediaQuery(
           data: MediaQueryData(padding: EdgeInsets.only(bottom: 10)),
-          child: TenorAttribution(
-            style: TenorAttributionStyle(padding: EdgeInsets.all(8)),
+          child: KlipyAttribution(
+            style: KlipyAttributionStyle(padding: EdgeInsets.all(8)),
           ),
         ),
       );

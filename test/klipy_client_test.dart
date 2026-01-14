@@ -8,18 +8,18 @@ import 'mocks/mocks.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Tenor >', () {
-    const tenorClient = KlipyClient(apiKey: '12345');
+  group('KlipyClient >', () {
+    const klipyClient = KlipyClient(apiKey: '12345');
 
     test('Make sure it is the right type', () {
-      expect(tenorClient, isA<KlipyClient>());
+      expect(klipyClient, isA<KlipyClient>());
     });
   });
 
   testWidgets('Make sure bottom sheet opens and closes', (tester) async {
-    final tenorClient = KlipyClient(
+    final klipyClient = KlipyClient(
       apiKey: '12345',
-      client: MockTenorHttpClient(),
+      client: MockKlipyHttpClient(),
     );
     late BuildContext savedContext;
 
@@ -36,17 +36,17 @@ void main() {
     );
 
     // show bottom sheet
-    tenorClient.showAsBottomSheet(context: savedContext);
+    klipyClient.showAsBottomSheet(context: savedContext);
     await tester.pump();
 
     // make sure it opens by finding a widget
-    expect(find.byType(TenorSheet), findsOneWidget);
+    expect(find.byType(KlipySheet), findsOneWidget);
 
     // close bottom sheet
     await tester.tapAt(const Offset(20.0, 20.0));
     await tester.pumpAndSettle();
 
     // make sure it closes by finding no widgets
-    expect(find.byType(TenorSheet), findsNothing);
+    expect(find.byType(KlipySheet), findsNothing);
   });
 }

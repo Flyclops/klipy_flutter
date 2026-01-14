@@ -8,7 +8,7 @@ void main() {
 
   group('Category Widget >', () {
     testWidgets('If category is null, find nothing', (tester) async {
-      await tester.pumpWidget(const TenorCategoryWidget());
+      await tester.pumpWidget(const KlipyCategoryWidget());
 
       expect(find.byType(GestureDetector), findsNothing);
     });
@@ -24,9 +24,9 @@ void main() {
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
-          child: TenorCategoryWidget(
+          child: KlipyCategoryWidget(
             category: klipyCategoryTest,
-            style: const TenorCategoryStyle(stripHashtag: false),
+            style: const KlipyCategoryStyle(stripHashtag: false),
           ),
         ),
       );
@@ -46,9 +46,9 @@ void main() {
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
-          child: TenorCategoryWidget(
+          child: KlipyCategoryWidget(
             category: klipyCategoryTest,
-            style: const TenorCategoryStyle(stripHashtag: true),
+            style: const KlipyCategoryStyle(stripHashtag: true),
           ),
         ),
       );
@@ -73,10 +73,10 @@ void main() {
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
-          child: TenorCategoryWidget(
+          child: KlipyCategoryWidget(
             category: klipyCategoryTest,
-            onTap: (tenorCategory) {
-              expect(tenorCategory, klipyCategoryTest);
+            onTap: (klipyCategory) {
+              expect(klipyCategory, klipyCategoryTest);
               hasTapped = true;
             },
           ),

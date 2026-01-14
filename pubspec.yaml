@@ -5,7 +5,9 @@ homepage: https://github.com/flyclops
 repository: https://github.com/flyclops/klipy_flutter
 topics:
   - gif
+  - klipy
   - tenor
+  - giphy
 
 environment:
   sdk: ">=3.7.0 <4.0.0"

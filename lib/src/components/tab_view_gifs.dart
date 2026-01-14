@@ -3,25 +3,25 @@ import 'package:klipy_flutter/src/components/tab_view.dart';
 import 'package:klipy_flutter/src/utilities/is_tablet.dart';
 import 'package:klipy_flutter/klipy_flutter.dart';
 
-class TenorViewGifs extends StatelessWidget {
+class KlipyViewGifs extends StatelessWidget {
   final KlipyClient client;
   final String? featuredCategory;
   final int? gifsPerRow;
   final bool showCategories;
-  final TenorTabViewStyle style;
+  final KlipyTabViewStyle style;
 
-  const TenorViewGifs({
+  const KlipyViewGifs({
     required this.client,
     this.featuredCategory,
     this.gifsPerRow,
     this.showCategories = true,
-    this.style = const TenorTabViewStyle(),
+    this.style = const KlipyTabViewStyle(),
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TenorTabView(
+    return KlipyTabView(
       client: client,
       featuredCategory: featuredCategory,
       gifsPerRow: gifsPerRow ?? (isTablet(context) ? 3 : 2),

@@ -10,8 +10,8 @@ class DarkTheme extends StatefulWidget {
 }
 
 class DarkThemeState extends State<DarkTheme> {
-  // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
-  var tenor = KlipyClient(apiKey: FlutterConfig.get('KLIPY_API_KEY'));
+  // replace apiKey with an api key provided by KLIPY > https://docs.klipy.com/getting-started
+  var klipyClient = KlipyClient(apiKey: FlutterConfig.get('KLIPY_API_KEY'));
   // define a result that we can display later
   KlipyResultObject? selectedResult;
 
@@ -44,11 +44,11 @@ class DarkThemeState extends State<DarkTheme> {
           FloatingActionButton(
             backgroundColor: Colors.black,
             onPressed: () async {
-              final result = await tenor.showAsBottomSheet(
+              final result = await klipyClient.showAsBottomSheet(
                 context: context,
-                style: TenorStyle(
+                style: KlipyStyle(
                   color: const Color(0xFF2b2d31),
-                  searchFieldStyle: const TenorSearchFieldStyle(
+                  searchFieldStyle: const KlipySearchFieldStyle(
                     fillColor: Color(0xFF1e1f22),
                     hintStyle: TextStyle(
                       color: Color(0xFFb5bac1),
@@ -61,10 +61,10 @@ class DarkThemeState extends State<DarkTheme> {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  attributionStyle: const TenorAttributionStyle(
+                  attributionStyle: const KlipyAttributionStyle(
                     brightnes: Brightness.dark,
                   ),
-                  tabBarStyle: TenorTabBarStyle(
+                  tabBarStyle: KlipyTabBarStyle(
                     decoration: BoxDecoration(
                       color: const Color(0xFF1e1f22),
                       border: Border.all(
@@ -85,7 +85,7 @@ class DarkThemeState extends State<DarkTheme> {
                     unselectedLabelColor: const Color(0xFFb5bac1),
                     labelColor: Colors.white,
                   ),
-                  selectedCategoryStyle: const TenorSelectedCategoryStyle(
+                  selectedCategoryStyle: const KlipySelectedCategoryStyle(
                     icon: Icon(
                       Icons.arrow_back_ios_new,
                       size: 15,
@@ -97,35 +97,35 @@ class DarkThemeState extends State<DarkTheme> {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  tabViewStyle: const TenorTabViewStyle(
+                  tabViewStyle: const KlipyTabViewStyle(
                     mediaBackgroundColor: Color(0xFF404249),
                   ),
                 ),
                 tabs: [
-                  TenorTab(
+                  KlipyTab(
                     name: 'Emojis',
-                    view: TenorViewEmojis(
-                      client: tenor,
-                      style: const TenorTabViewStyle(
+                    view: KlipyViewEmojis(
+                      client: klipyClient,
+                      style: const KlipyTabViewStyle(
                         mediaBackgroundColor: Color(0xFF404249),
                       ),
                     ),
                   ),
-                  TenorTab(
+                  KlipyTab(
                     name: 'GIFs',
-                    view: TenorViewGifs(
-                      client: tenor,
-                      style: const TenorTabViewStyle(
+                    view: KlipyViewGifs(
+                      client: klipyClient,
+                      style: const KlipyTabViewStyle(
                         mediaBackgroundColor: Color(0xFF404249),
                       ),
                       featuredCategory: '📈 Featured22',
                     ),
                   ),
-                  TenorTab(
+                  KlipyTab(
                     name: 'Stickers',
-                    view: TenorViewStickers(
-                      client: tenor,
-                      style: const TenorTabViewStyle(
+                    view: KlipyViewStickers(
+                      client: klipyClient,
+                      style: const KlipyTabViewStyle(
                         mediaBackgroundColor: Color(0xFF404249),
                       ),
                     ),

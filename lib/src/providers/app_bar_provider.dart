@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:klipy_flutter/klipy_flutter.dart';
 
-class TenorAppBarProvider with ChangeNotifier {
+class KlipyAppBarProvider with ChangeNotifier {
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
   String _queryText = '';
@@ -20,7 +20,7 @@ class TenorAppBarProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  TenorAppBarProvider(
+  KlipyAppBarProvider(
     String queryText,
     Duration debounce, {
     required this.keyboardDismissBehavior,

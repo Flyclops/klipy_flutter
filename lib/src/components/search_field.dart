@@ -7,7 +7,7 @@ import 'package:klipy_flutter/src/providers/app_bar_provider.dart';
 import 'package:klipy_flutter/src/providers/sheet_provider.dart';
 import 'package:klipy_flutter/src/utilities/debouncer.dart';
 
-class TenorSelectedCategoryStyle {
+class KlipySelectedCategoryStyle {
   final double height;
   final EdgeInsets padding;
   final Icon? icon;
@@ -16,7 +16,7 @@ class TenorSelectedCategoryStyle {
   /// The space between icon and text.
   final double spaceBetween;
 
-  const TenorSelectedCategoryStyle({
+  const KlipySelectedCategoryStyle({
     this.height = 52,
     this.padding = const EdgeInsets.only(left: 14, top: 1),
     this.icon = const Icon(
@@ -33,12 +33,12 @@ class TenorSelectedCategoryStyle {
   });
 }
 
-class TenorSearchFieldStyle {
+class KlipySearchFieldStyle {
   final Color fillColor;
   final TextStyle textStyle;
   final TextStyle hintStyle;
 
-  const TenorSearchFieldStyle({
+  const KlipySearchFieldStyle({
     this.fillColor = Colors.white,
     this.hintStyle = const TextStyle(
       color: Color(0xFF8A8A86),
@@ -54,34 +54,34 @@ class TenorSearchFieldStyle {
 }
 
 /// If you want to style this just pass in your own via the `searchFieldWidget` parameter.
-class TenorSearchField extends StatefulWidget {
+class KlipySearchField extends StatefulWidget {
   // Scroll Controller
   final ScrollController scrollController;
   final TextEditingController? searchFieldController;
   final Widget? searchFieldWidget;
-  final TenorSelectedCategoryStyle selectedCategoryStyle;
-  final TenorSearchFieldStyle style;
+  final KlipySelectedCategoryStyle selectedCategoryStyle;
+  final KlipySearchFieldStyle style;
   final String hintText;
   final AnimationStyle? animationStyle;
 
-  const TenorSearchField({
+  const KlipySearchField({
     super.key,
     required this.hintText,
     required this.scrollController,
     this.animationStyle,
     this.searchFieldController,
     this.searchFieldWidget,
-    this.selectedCategoryStyle = const TenorSelectedCategoryStyle(),
-    this.style = const TenorSearchFieldStyle(),
+    this.selectedCategoryStyle = const KlipySelectedCategoryStyle(),
+    this.style = const KlipySearchFieldStyle(),
   });
 
   @override
-  State<TenorSearchField> createState() => _TenorSearchFieldState();
+  State<KlipySearchField> createState() => _KlipySearchFieldState();
 }
 
-class _TenorSearchFieldState extends State<TenorSearchField> {
-  late TenorAppBarProvider _appBarProvider;
-  late TenorSheetProvider _sheetProvider;
+class _KlipySearchFieldState extends State<KlipySearchField> {
+  late KlipyAppBarProvider _appBarProvider;
+  late KlipySheetProvider _sheetProvider;
   late TextEditingController _textEditingController;
   final FocusNode _focus = FocusNode();
 
@@ -91,7 +91,7 @@ class _TenorSearchFieldState extends State<TenorSearchField> {
     _focus.addListener(() => _onFocusChange(widget.animationStyle));
 
     // AppBar Provider
-    _appBarProvider = Provider.of<TenorAppBarProvider>(context, listen: false);
+    _appBarProvider = Provider.of<KlipyAppBarProvider>(context, listen: false);
 
     // Listen query
     _appBarProvider.addListener(_listenerQuery);
@@ -103,7 +103,7 @@ class _TenorSearchFieldState extends State<TenorSearchField> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Establish the debouncer
-      final debouncer = TenorDebouncer(delay: _appBarProvider.debounce);
+      final debouncer = KlipyDebouncer(delay: _appBarProvider.debounce);
 
       // Listener TextField
       _textEditingController.addListener(() {
@@ -119,8 +119,8 @@ class _TenorSearchFieldState extends State<TenorSearchField> {
 
   @override
   void didChangeDependencies() {
-    _sheetProvider = Provider.of<TenorSheetProvider>(context);
-    _appBarProvider = Provider.of<TenorAppBarProvider>(context);
+    _sheetProvider = Provider.of<KlipySheetProvider>(context);
+    _appBarProvider = Provider.of<KlipyAppBarProvider>(context);
     super.didChangeDependencies();
   }
 
@@ -236,7 +236,7 @@ class _TenorSearchFieldState extends State<TenorSearchField> {
       _sheetProvider.scrollController.animateTo(
         _sheetProvider.maxExtent,
         duration:
-            animationStyle?.duration ?? tenorDefaultAnimationStyle.duration!,
+            animationStyle?.duration ?? klipyDefaultAnimationStyle.duration!,
         curve: animationStyle?.curve ?? Curves.linear,
       );
     }

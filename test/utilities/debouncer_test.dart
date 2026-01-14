@@ -8,7 +8,7 @@ void main() {
     test(
       'Make sure the callback is called after the right amount of time',
       () async {
-        final debouncer = TenorDebouncer(delay: const Duration(seconds: 1));
+        final debouncer = KlipyDebouncer(delay: const Duration(seconds: 1));
 
         bool callbackCalled = false;
 
@@ -28,7 +28,7 @@ void main() {
   test(
     'Make sure that dispose ends the timer and does not run the callback',
     () async {
-      final debouncer = TenorDebouncer(delay: const Duration(seconds: 1));
+      final debouncer = KlipyDebouncer(delay: const Duration(seconds: 1));
 
       bool callbackCalled = false;
 

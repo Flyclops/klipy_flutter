@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
 
-class TenorDragHandleStyle {
+class KlipyDragHandleStyle {
   final Decoration decoration;
   final double height;
   final EdgeInsets margin;
   final double width;
 
-  const TenorDragHandleStyle({
+  const KlipyDragHandleStyle({
     this.decoration = const BoxDecoration(
       color: Color(0xFF8A8A86),
-      borderRadius: BorderRadius.all(
-        Radius.circular(100),
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(100)),
     ),
     this.height = 4,
-    this.margin = const EdgeInsets.symmetric(
-      vertical: 8,
-    ),
+    this.margin = const EdgeInsets.symmetric(vertical: 8),
     this.width = 134,
   });
 }
 
-class TenorDragHandle extends StatelessWidget {
-  final TenorDragHandleStyle _style;
+class KlipyDragHandle extends StatelessWidget {
+  final KlipyDragHandleStyle _style;
 
-  const TenorDragHandle({
-    TenorDragHandleStyle style = const TenorDragHandleStyle(),
+  const KlipyDragHandle({
+    KlipyDragHandleStyle style = const KlipyDragHandleStyle(),
     super.key,
   }) : _style = style;
 

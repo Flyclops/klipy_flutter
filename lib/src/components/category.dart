@@ -2,7 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:klipy_flutter/klipy_flutter.dart';
 
-class TenorCategoryStyle {
+class KlipyCategoryStyle {
   /// Allows you to set a fallback decoration for people to see if the image loads slow or fails.
   final Decoration decoration;
 
@@ -12,7 +12,7 @@ class TenorCategoryStyle {
   /// Color that shows between the category text and image.
   final Color imageOverlayColor;
 
-  /// Tenor returns "#" back with the category name, this will strip it.
+  /// KLIPY returns "#" back with the category name, this will strip it.
   final bool stripHashtag;
 
   /// Control how the category text looks.
@@ -21,7 +21,7 @@ class TenorCategoryStyle {
   /// Used to stop text from touching the edges when `FittedBox` kicks in.
   final EdgeInsets padding;
 
-  const TenorCategoryStyle({
+  const KlipyCategoryStyle({
     this.decoration = const BoxDecoration(color: Color(0xFFBEB9AC)),
     this.height = 100,
     this.imageOverlayColor = const Color.fromRGBO(0, 0, 0, 0.5),
@@ -35,15 +35,15 @@ class TenorCategoryStyle {
   });
 }
 
-class TenorCategoryWidget extends StatelessWidget {
+class KlipyCategoryWidget extends StatelessWidget {
   final KlipyCategoryObject? category;
   final Function(KlipyCategoryObject)? onTap;
-  final TenorCategoryStyle style;
+  final KlipyCategoryStyle style;
 
-  const TenorCategoryWidget({
+  const KlipyCategoryWidget({
     this.category,
     this.onTap,
-    this.style = const TenorCategoryStyle(),
+    this.style = const KlipyCategoryStyle(),
     super.key,
   });
 

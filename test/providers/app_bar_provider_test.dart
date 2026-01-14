@@ -14,9 +14,9 @@ void main() {
     searchTerm: 'test seach term',
   );
 
-  group('TenorAppBarProvider >', () {
+  group('KlipyAppBarProvider >', () {
     test('Initializes as expected', () async {
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,
@@ -30,7 +30,7 @@ void main() {
 
     test('Can set queryText', () async {
       const updatedQuery = 'updated query';
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,
@@ -44,7 +44,7 @@ void main() {
     });
 
     test('Can set selectedCategory', () async {
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,
@@ -58,7 +58,7 @@ void main() {
     });
 
     test('Resets selectedCategory when queryText cleared', () async {
-      final provider = TenorAppBarProvider(
+      final provider = KlipyAppBarProvider(
         testQuery,
         testDuration,
         keyboardDismissBehavior: testKeyboardDismissBehavior,

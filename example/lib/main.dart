@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tenor Flutter Demo',
+      title: 'KLIPY Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -35,8 +35,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
-  var tenor = KlipyClient(apiKey: FlutterConfig.get('KLIPY_API_KEY'));
+  // replace apiKey with an api key provided by KLIPY > https://docs.klipy.com/getting-started
+  var klipyClient = KlipyClient(apiKey: FlutterConfig.get('KLIPY_API_KEY'));
   // define a result that we can display later
   KlipyResultObject? selectedResult;
 
@@ -45,17 +45,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Tenor Flutter Demo'),
+        title: const Text('KLIPY Flutter Demo'),
       ),
       body: _exampleBody(),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // A default implementation of tenor flutter. Displays the gif picker
+          // A default implementation of klipy flutter. Displays the gif picker
           // as a bottom sheet and then updates the selectedResult in state.
           FloatingActionButton(
             onPressed: () async {
-              final result = await tenor.showAsBottomSheet(context: context);
+              final result =
+                  await klipyClient.showAsBottomSheet(context: context);
               setState(() {
                 selectedResult = result;
               });

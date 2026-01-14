@@ -1,19 +1,19 @@
 import 'package:flutter/widgets.dart';
 import 'package:klipy_flutter/klipy_flutter.dart';
 
-class TenorTabProvider with ChangeNotifier {
-  TenorAttributionType attributionType;
+class KlipyTabProvider with ChangeNotifier {
+  KlipyAttributionType attributionType;
   KlipyClient client;
-  TenorTab _selectedTab;
+  KlipyTab _selectedTab;
 
-  TenorTabProvider({
+  KlipyTabProvider({
     required this.attributionType,
     required this.client,
-    required TenorTab selectedTab,
+    required KlipyTab selectedTab,
   }) : _selectedTab = selectedTab;
 
-  TenorTab get selectedTab => _selectedTab;
-  set selectedTab(TenorTab selectedTab) {
+  KlipyTab get selectedTab => _selectedTab;
+  set selectedTab(KlipyTab selectedTab) {
     _selectedTab = selectedTab;
     notifyListeners();
   }

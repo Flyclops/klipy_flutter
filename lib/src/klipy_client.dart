@@ -1,45 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:klipy_dart/klipy_dart.dart' as klipy_dart;
-
+import 'package:klipy_flutter/klipy_flutter.dart';
 import 'package:klipy_flutter/src/components/components.dart';
 import 'package:klipy_flutter/src/providers/providers.dart';
-import 'package:klipy_flutter/klipy_flutter.dart';
+import 'package:provider/provider.dart';
 
-const tenorDefaultAnimationStyle = AnimationStyle(
+const klipyDefaultAnimationStyle = AnimationStyle(
   duration: Duration(milliseconds: 250),
   reverseDuration: Duration(milliseconds: 200),
 );
 
-class TenorStyle {
+class KlipyStyle {
   final AnimationStyle? animationStyle;
-  final TenorAttributionStyle attributionStyle;
+  final KlipyAttributionStyle attributionStyle;
 
   /// Background color of the sheet.
   final Color color;
-  final TenorDragHandleStyle dragHandleStyle;
+  final KlipyDragHandleStyle dragHandleStyle;
   final String? fontFamily;
-  final TenorSearchFieldStyle searchFieldStyle;
-  final TenorSelectedCategoryStyle selectedCategoryStyle;
+  final KlipySearchFieldStyle searchFieldStyle;
+  final KlipySelectedCategoryStyle selectedCategoryStyle;
 
   /// Shape for the sheet.
   final ShapeBorder shape;
-  final TenorTabBarStyle tabBarStyle;
-  final TenorTabViewStyle tabViewStyle;
+  final KlipyTabBarStyle tabBarStyle;
+  final KlipyTabViewStyle tabViewStyle;
 
-  const TenorStyle({
+  const KlipyStyle({
     this.animationStyle,
-    this.attributionStyle = const TenorAttributionStyle(),
+    this.attributionStyle = const KlipyAttributionStyle(),
     this.color = const Color(0xFFF9F8F2),
-    this.dragHandleStyle = const TenorDragHandleStyle(),
+    this.dragHandleStyle = const KlipyDragHandleStyle(),
     this.fontFamily,
-    this.searchFieldStyle = const TenorSearchFieldStyle(),
-    this.selectedCategoryStyle = const TenorSelectedCategoryStyle(),
+    this.searchFieldStyle = const KlipySearchFieldStyle(),
+    this.selectedCategoryStyle = const KlipySelectedCategoryStyle(),
     this.shape = const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
     ),
-    this.tabBarStyle = const TenorTabBarStyle(),
-    this.tabViewStyle = const TenorTabViewStyle(),
+    this.tabBarStyle = const KlipyTabBarStyle(),
+    this.tabViewStyle = const KlipyTabViewStyle(),
   });
 }
 
@@ -52,14 +51,14 @@ class KlipyClient extends klipy_dart.KlipyClient {
     super.networkTimeout = const Duration(seconds: 5),
   });
 
-  /// Shows a bottom sheet modal that allows you to select a Tenor media object for use.
+  /// Shows a bottom sheet modal that allows you to select a KLIPY media object for use.
   ///
   /// If you pass in a `searchFieldWidget` you must also pass in a `searchFieldController`. The controller will automatically be disposed of.
   ///
-  /// You must have one valid form of [Tenor attribution](https://developers.google.com/tenor/guides/attribution) in order to use this within your app.
+  /// You must have valid [KLIPY attribution](https://docs.klipy.com/attribution) in order to use this within your app.
   Future<KlipyResultObject?> showAsBottomSheet({
     required BuildContext context,
-    TenorAttributionType attributionType = TenorAttributionType.poweredBy,
+    KlipyAttributionType attributionType = KlipyAttributionType.poweredBy,
     // Whether to cover the app bar with the bottom sheet.
     bool coverAppBar = false,
     Duration debounce = const Duration(milliseconds: 300),
@@ -76,24 +75,24 @@ class KlipyClient extends klipy_dart.KlipyClient {
     // A list of target sizes that the showModalBottomSheet should snap to.
     // The [minChildSize] and [maxChildSize] are implicitly included in snap sizes and do not need to be specified here.
     List<double>? snapSizes,
-    TenorStyle style = const TenorStyle(),
-    List<TenorTab>? tabs,
+    KlipyStyle style = const KlipyStyle(),
+    List<KlipyTab>? tabs,
     bool useSafeArea = true,
   }) {
     final tabsToDisplay =
         tabs ??
         [
-          TenorTab(
+          KlipyTab(
             name: 'Emojis',
-            view: TenorViewEmojis(client: this, style: style.tabViewStyle),
+            view: KlipyViewEmojis(client: this, style: style.tabViewStyle),
           ),
-          TenorTab(
+          KlipyTab(
             name: 'GIFs',
-            view: TenorViewGifs(client: this, style: style.tabViewStyle),
+            view: KlipyViewGifs(client: this, style: style.tabViewStyle),
           ),
-          TenorTab(
+          KlipyTab(
             name: 'Stickers',
-            view: TenorViewStickers(client: this, style: style.tabViewStyle),
+            view: KlipyViewStickers(client: this, style: style.tabViewStyle),
           ),
         ];
 
@@ -102,7 +101,7 @@ class KlipyClient extends klipy_dart.KlipyClient {
       context: context,
       isScrollControlled: true,
       shape: style.shape,
-      sheetAnimationStyle: style.animationStyle ?? tenorDefaultAnimationStyle,
+      sheetAnimationStyle: style.animationStyle ?? klipyDefaultAnimationStyle,
       useSafeArea: useSafeArea,
       builder: (context) {
         return DefaultTextStyle.merge(
@@ -116,7 +115,7 @@ class KlipyClient extends klipy_dart.KlipyClient {
               providers: [
                 ChangeNotifierProvider(
                   create:
-                      (context) => TenorAppBarProvider(
+                      (context) => KlipyAppBarProvider(
                         queryText,
                         debounce,
                         keyboardDismissBehavior: keyboardDismissBehavior,
@@ -124,7 +123,7 @@ class KlipyClient extends klipy_dart.KlipyClient {
                 ),
                 ChangeNotifierProvider(
                   create:
-                      (context) => TenorSheetProvider(
+                      (context) => KlipySheetProvider(
                         initialExtent: initialExtent,
                         maxExtent: maxExtent,
                         minExtent: minExtent,
@@ -133,14 +132,14 @@ class KlipyClient extends klipy_dart.KlipyClient {
                 ),
                 ChangeNotifierProvider(
                   create:
-                      (context) => TenorTabProvider(
+                      (context) => KlipyTabProvider(
                         attributionType: attributionType,
                         client: this,
                         selectedTab: tabsToDisplay[initialTabIndex],
                       ),
                 ),
               ],
-              child: TenorSheet(
+              child: KlipySheet(
                 attributionType: attributionType,
                 coverAppBar: coverAppBar,
                 initialTabIndex: initialTabIndex,

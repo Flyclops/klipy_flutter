@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TenorSheetProvider extends ChangeNotifier {
+class KlipySheetProvider extends ChangeNotifier {
   final double minExtent;
   final double maxExtent;
   final double initialExtent;
 
-  TenorSheetProvider({
+  KlipySheetProvider({
     required DraggableScrollableController scrollController,
     required this.minExtent,
     required this.maxExtent,
     double? initialExtent,
-  })  : initialExtent = initialExtent ?? maxExtent,
-        _scrollController = scrollController;
+  }) : initialExtent = initialExtent ?? maxExtent,
+       _scrollController = scrollController;
 
   DraggableScrollableController _scrollController;
 

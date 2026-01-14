@@ -10,8 +10,8 @@ class Localization extends StatefulWidget {
 }
 
 class LocalizationState extends State<Localization> {
-  // replace apiKey with an api key provided by Tenor > https://developers.google.com/tenor/guides/quickstart
-  var tenor = KlipyClient(
+  // replace apiKey with an api key provided by KLIPY > https://docs.klipy.com/getting-started
+  var klipyClient = KlipyClient(
     apiKey: FlutterConfig.get('KLIPY_API_KEY'),
     country: 'es',
     locale: 'es_ES',
@@ -47,27 +47,27 @@ class LocalizationState extends State<Localization> {
         children: [
           FloatingActionButton(
             onPressed: () async {
-              final result = await tenor.showAsBottomSheet(
+              final result = await klipyClient.showAsBottomSheet(
                 context: context,
-                searchFieldHintText: 'Buscar Tenor',
+                searchFieldHintText: 'Buscar KLIPY',
                 tabs: [
-                  TenorTab(
+                  KlipyTab(
                     name: 'Caritas',
-                    view: TenorViewEmojis(
-                      client: tenor,
+                    view: KlipyViewEmojis(
+                      client: klipyClient,
                     ),
                   ),
-                  TenorTab(
+                  KlipyTab(
                     name: 'Fotos',
-                    view: TenorViewGifs(
-                      client: tenor,
+                    view: KlipyViewGifs(
+                      client: klipyClient,
                       featuredCategory: '📈 Destacada',
                     ),
                   ),
-                  TenorTab(
+                  KlipyTab(
                     name: 'Pegatinas',
-                    view: TenorViewStickers(
-                      client: tenor,
+                    view: KlipyViewStickers(
+                      client: klipyClient,
                     ),
                   ),
                 ],
