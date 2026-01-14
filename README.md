@@ -51,8 +51,6 @@ import 'package:klipy_flutter/klipy_flutter.dart';
 
 You must pass in a valid `apiKey` provided by [KLIPY](https://docs.klipy.com/getting-started).
 
-If you would like to distinguish between projects/devices then consider creating seperate [API keys](https://partner.klipy.com/api-keys) under the same platform.
-
 ```
 final klipyClient = KlipyClient(apiKey: 'YOUR_API_KEY');
 ```
@@ -68,6 +66,20 @@ final klipyClient = KlipyClient(apiKey: 'YOUR_API_KEY');
 final KlipyResultObject? result = await klipyClient.showAsBottomSheet(context: context);
 print(result?.media.tinyGif?.url);
 ```
+## Migrating from `tenor_flutter` to `klipy_flutter`
+- Change all references of:
+  - `import 'package:tenor_flutter/tenor_flutter.dart';` to `import 'package:klipy_flutter/klipy_flutter.dart';`
+  - `TenorResult` to `KlipyResultObject`
+  - `TenorMediaObject` to `KlipyMediaObject`
+  - `TenorStyle` to `KlipyStyle`
+  - `TenorSelectedCategoryStyle` to `KlipySelectedCategoryStyle`
+  - `Tenor` to `KlipyClient`
+- Remove the following parameters from `Tenor`/`KlipyClient`:
+  - `clientKey`
+    - If you would like to distinguish between projects/devices then consider creating seperate [API keys](https://partner.klipy.com/api-keys) under the same platform. 
+  - `contentFilter`
+    - This can be set in the [Partner Panel](https://docs.klipy.com/migrate-from-tenor/content-filtering)
+
 
 ## Don't need the UI?
 
