@@ -1,4 +1,4 @@
 ## 0.0.1
 
-- refactor: [klipy_flutter](https://pub.dev/packages/klipy_flutter) so that it supports the KLIPY API via their [migration docs](https://docs.klipy.com/migrate-from-tenor).
+- refactor: [tenor_flutter](https://pub.dev/packages/tenor_flutter) so that it supports the KLIPY API via their [migration docs](https://docs.klipy.com/migrate-from-tenor).
 - BREAKING: `contentFilter` has been removed and can be set via the [Partner Panel](https://docs.klipy.com/migrate-from-tenor/content-filtering)
